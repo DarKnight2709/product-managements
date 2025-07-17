@@ -1,6 +1,7 @@
 const Product = require("../../models/products.model");
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
+const paginationHeper = require("../../helpers/pagination");
 
 // [GET] /admin/products/
 exports.index =  async (req, res) => {
@@ -20,14 +21,28 @@ exports.index =  async (req, res) => {
     find.title = objectSearch.regex;
   }
 
-  const products = await Product.find(find);
+  // Phân trang 
+  const countProducts = await Product.countDocuments(find);
+
+  let objectPagination = paginationHeper(
+    {
+      currentPage: 1,
+      limitItem: 4,
+    }, 
+    req.query,
+    countProducts
+  );
+  
+  // Kết thúc phân trang
+
+  
+  const products = await Product.find(find).limit(objectPagination.limitItem).skip(objectPagination.skip);
   // console.log(products);
   res.render("admin/pages/products/index.pug", {
         pageTitle: "Trang danh sách sản phẩm",
         products: products,
         filterStatus: filterStatus,
-        keyword: objectSearch.keyword
+        keyword: objectSearch.keyword,
+        pagination: objectPagination
     });
-
-  
 }
