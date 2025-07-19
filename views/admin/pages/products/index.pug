@@ -2,12 +2,13 @@ extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
 
 block main
   h1 Trang danh sách sản phẩm
 
   .card.mb-3
-    .card-header Bộ lọc và Tìm kiếm
+    .card-header.fw-bold Bộ lọc và Tìm kiếm
     .card-body
       .row
         .col-6
@@ -15,11 +16,19 @@ block main
         .col-6
           +search(keyword)
   .card.mb-3
-    .card-header Danh sách sản phẩm
+    .card-header.fw-bold Danh sách sản phẩm
     .card-body
-      table.table.table-hover.table-sm
+      +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+      
+      br
+      table(
+        class="table table-hover table-sm"
+        checkbox-multi
+      )
         thead
           tr
+            th 
+              input(type="checkbox" name="checkall")
             th STT
             th Hình ảnh
             th Tiêu đề
@@ -29,6 +38,12 @@ block main
         tbody
           each item, index in products
             tr
+              td 
+                input(
+                  type="checkbox" 
+                  name="id"
+                  value=item.id
+                )
               td #{index + 1}
               td
                 img(

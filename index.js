@@ -15,6 +15,10 @@ const port = process.env.PORT;
 
 
 app.use(methodOverride('_method'))
+// use to handling HTML form submissions (method POST) (input: username=abc&pass=123)
+app.use(express.urlencoded({extended: 'false'}));
+// JSON API calls (ex: fetch) (input: {"username":"abc"})
+app.use(express.json());
 
 
 app.set('views', './views'); 

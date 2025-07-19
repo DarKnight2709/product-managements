@@ -29,7 +29,7 @@ mixin pagination(pagination)
           disabled=pagination.currentPage + 1 > pagination.totalPage
           ) &gt;
 
-      li(class=`page-item ${pagination.currentPage === pagination.totalPage ? "disabled": ""}`)
+      li(class=`page-item ${pagination.currentPage >= pagination.totalPage ? "disabled": ""}`)
           button(
             class="page-link"
             button-pagination = pagination.totalPage
