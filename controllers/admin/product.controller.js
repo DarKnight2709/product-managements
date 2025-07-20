@@ -105,7 +105,7 @@ exports.changeMulti = async (req, res) => {
         );
 
       }
-      
+      req.flash("success", `Đã thay đổi vị trí thành công của ${ids.length} sản phẩm đã chọn!`);
       break;
     default:
       break;
