@@ -130,7 +130,14 @@ if(formChangeMulti){
       let ids = [];
       checkedTotal.forEach(checkbox => {
         const id = checkbox.value;
-        ids.push(id);
+        if(typeChange === "change-position") {
+          const position = checkbox
+            .closest("tr")
+            .querySelector("input[name='position']").value;
+          ids.push(`${id}-${position}`);
+        } else {
+          ids.push(id);
+        }
       })
       
       const inputIds = formChangeMulti.querySelector("input[name='ids']");
