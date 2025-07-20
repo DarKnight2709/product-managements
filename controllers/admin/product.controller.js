@@ -91,6 +91,7 @@ exports.changeMulti = async (req, res) => {
         },
         
       );
+      req.flash("success", `Đã xoá thành công ${ids.length} sản phẩm đã chọn!`);
       break;
     case "change-position":
       for (const item of ids) {
@@ -128,7 +129,7 @@ exports.deleteItem = async (req, res) => {
     deletedAt: new Date()
   });
 
-
+  req.flash("success", `Đã xoá thành công sản phẩm`);
   res.redirect("back");
 
 } 
