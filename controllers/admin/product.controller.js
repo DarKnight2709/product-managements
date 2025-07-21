@@ -3,6 +3,8 @@ const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHeper = require("../../helpers/pagination");
 
+const systemConfig = require("../../config/system");
+
 // [GET] /admin/products/
 exports.index =  async (req, res) => {
   const filterStatus = filterStatusHelper(req.query);
@@ -35,12 +37,12 @@ exports.index =  async (req, res) => {
   
   // Kết thúc phân trang
 
-  
-  const products = await Product
+  let products = await Product
     .find(find)
     .sort({position: "desc"})
-    .limit(objectPagination.limitItem)
-    .skip(objectPagination.skip);
+    
+  products = products.slice(objectPagination.skip, objectPagination.skip + objectPagination.limitItem);
+  // console.log(products);
   // console.log(products);
   res.render("admin/pages/products/index.pug", {
         pageTitle: "Trang danh sách sản phẩm",
@@ -49,6 +51,7 @@ exports.index =  async (req, res) => {
         keyword: objectSearch.keyword,
         pagination: objectPagination
     });
+  
 }
 
 // [PATCH] /admin/products/change-status/:status/:id
@@ -63,7 +66,6 @@ exports.changeStatus = async (req, res) => {
   // quay lại trang vừa mới thoát
 
 }
-
 
 
 //[PATCH]
@@ -131,5 +133,42 @@ exports.deleteItem = async (req, res) => {
 
   req.flash("success", `Đã xoá thành công sản phẩm`);
   res.redirect("back");
+
+} 
+
+
+//[GET] get create form product page
+exports.createForm =  (req, res) => {
+
+   res.render("admin/pages/products/create.pug", {
+        pageTitle: "Thêm mới sản phẩm"
+    });
+
+} 
+
+// [POST] create a product
+exports.createProduct =  async (req, res) => {
+  req.body.price = parseInt(req.body.price);
+  req.body.discountPercentage = parseInt(req.body.discountPercentage);
+  req.body.stock = parseInt(req.body.stock);
+
+
+  if(req.body.position === "") {
+    const productCount = await Product.countDocuments();
+    req.body.position = productCount + 1
+  } else {
+    req.body.position = parseInt(req.body.position);
+  }
+
+  req.body.thumbnail = `/uploads/${req.file.filename}`;
+  console.log(req.body);
+
+  const product = new Product(req.body);
+  product.save();
+  // console.log(req.file);
+  
+  
+  
+  res.redirect(`${systemConfig.prefixAdmin}/products`);
 
 } 
