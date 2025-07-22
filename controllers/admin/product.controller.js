@@ -148,6 +148,8 @@ exports.createForm =  (req, res) => {
 
 // [POST] create a product
 exports.createProduct =  async (req, res) => {
+
+
   req.body.price = parseInt(req.body.price);
   req.body.discountPercentage = parseInt(req.body.discountPercentage);
   req.body.stock = parseInt(req.body.stock);
@@ -160,8 +162,12 @@ exports.createProduct =  async (req, res) => {
     req.body.position = parseInt(req.body.position);
   }
 
-  req.body.thumbnail = `/uploads/${req.file.filename}`;
-  console.log(req.body);
+  if(req.file) {
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
+    console.log(req.body);
+
+  }
+  
 
   const product = new Product(req.body);
   product.save();

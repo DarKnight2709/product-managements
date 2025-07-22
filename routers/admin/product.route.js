@@ -5,6 +5,8 @@ const multer = require('multer');
 const storageMulter = require("../../helpers/storageMulter");
 const upload = multer({storage: storageMulter(multer)});
 
+const validate = require("../../validates/admin/product.validate");
+
 
 router.get('/', controller.index)
 
@@ -18,6 +20,7 @@ router.get('/create', controller.createForm);
 
 router.post('/create', 
   upload.single("thumbnail"), 
+  validate.createPost,
   controller.createProduct);
 
 module.exports = router;

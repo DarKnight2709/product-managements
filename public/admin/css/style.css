@@ -55,9 +55,8 @@
 
 /* Show alert */
 [show-alert] {
-  background-color: #d1e7dd;
-  color: #0f5132;
-  position: fixed;
+  position: fixed !important; 
+  /* cần dùng important nếu không bootstrap sẽ ghi đè vì thằng này có độ ưu tiên thấp hơn vì nó dùng một attribute thay vì lớp*/
   top: 70px;
   right: 15px;
   z-index: 9999;
