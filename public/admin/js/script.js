@@ -171,7 +171,39 @@ if(showAlert) {
   })
 }
 
-
-
-
 // End Show alert
+
+
+
+// Upload Image (preview)
+const uploadImage = document.querySelector("[upload-image]");
+
+console.log(uploadImage);
+if(uploadImage) {
+  const uploadImageInput = uploadImage.querySelector("[upload-image-input]");
+  const uploadImagePreview = uploadImage.querySelector("[upload-image-preview]");
+
+  uploadImageInput.addEventListener("change", (e) => {
+
+    const file = e.target.files[0];
+    if(file){
+      uploadImagePreview.src = URL.createObjectURL(file);
+      const closeImagePreview = document.querySelector("[close-image-preview]");
+      closeImagePreview.innerHTML = "x"
+      closeImagePreview.classList.add("close-image-preview");
+
+      closeImagePreview.addEventListener("click", () => {
+        uploadImageInput.value = "";
+        uploadImagePreview.src = "";
+        closeImagePreview.innerHTML = "";
+        closeImagePreview.classList.remove("close-image-preview");
+
+      });
+    }
+  })
+  
+}
+
+// End Upload Image
+
+
