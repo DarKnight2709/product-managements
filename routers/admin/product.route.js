@@ -30,4 +30,7 @@ router.patch("/edit/:id",
   validate.createPost,
   controller.editProduct);
 
+router.get("/detail/:id", controller.detail);
+
+
 module.exports = router;

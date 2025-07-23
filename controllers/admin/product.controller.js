@@ -229,3 +229,29 @@ exports.editProduct =  async (req, res) => {
   
 
 } 
+
+
+// [GET] get a product detail
+exports.detail =  async (req, res) => {
+  try {
+    const find = {
+      deleted: false,
+      _id: req.params.id
+    }
+
+    
+    const product = await Product.findOne(find);
+    console.log(product);
+    res.render("admin/pages/products/detail.pug", {
+      pageTitle: product.title,
+      product: product
+    });
+    
+  } catch (error) {
+    console.log(error.message);
+    res.redirect(`${systemConfig.prefixAdmin}/products`);
+
+  }
+  
+
+} 
