@@ -183,6 +183,9 @@ if(uploadImage) {
   const uploadImageInput = uploadImage.querySelector("[upload-image-input]");
   const uploadImagePreview = uploadImage.querySelector("[upload-image-preview]");
 
+  
+  console.log(uploadImageInput.files);
+
   uploadImageInput.addEventListener("change", (e) => {
 
     const file = e.target.files[0];
