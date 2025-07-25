@@ -37,9 +37,20 @@ exports.index =  async (req, res) => {
   
   // Kết thúc phân trang
 
+  // Sort
+  let sort = {}
+
+  if(req.query.sortKey && req.query.sortValue) {
+    sort[req.query.sortKey] = req.query.sortValue;
+  } else {
+    sort.position = "desc";
+  }
+  // End sort
+
+
   let products = await Product
     .find(find)
-    .sort({position: "desc"})
+    .sort(sort)
     
   products = products.slice(objectPagination.skip, objectPagination.skip + objectPagination.limitItem);
   // console.log(products);
@@ -49,7 +60,7 @@ exports.index =  async (req, res) => {
         products: products,
         filterStatus: filterStatus,
         keyword: objectSearch.keyword,
-        pagination: objectPagination
+        pagination: objectPagination,
     });
   
 }

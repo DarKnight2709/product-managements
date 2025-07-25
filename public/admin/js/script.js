@@ -210,3 +210,55 @@ if(uploadImage) {
 // End Upload Image
 
 
+
+
+// sort 
+const sort = document.querySelector("[sort]");
+console.log(sort);
+
+if(sort) {
+  const sortSelect = sort.querySelector("[sort-select]");
+  console.log(sortSelect.value);
+
+  const sortClear = sort.querySelector("[sort-clear]");
+
+
+  let url = new URL(window.location.href);
+
+  sortSelect.addEventListener("change", (e) => {
+    const [sortKey, sortValue] = (e.target.value).split("-");
+
+
+    if(sortKey && sortValue) {
+      url.searchParams.set("sortKey", sortKey);
+      url.searchParams.set("sortValue", sortValue);
+
+      window.location.href = url.href; 
+    }
+  });
+  console.log(sortClear);
+
+  sortClear.addEventListener("click", () => {
+
+    url.searchParams.delete("sortKey");
+    url.searchParams.delete("sortValue");
+
+    window.location.href = url.href;
+  }) 
+
+
+  // Update sort form
+  const sortKey = url.searchParams.get("sortKey");
+  const sortValue = url.searchParams.get("sortValue");
+
+  if(sortKey && sortValue) {
+    const sortOption = sortKey + "-" + sortValue;
+
+    const optionSelected = sortSelect.querySelector(`option[value=${sortOption}]`);
+    optionSelected.selected = true;
+  } 
+  // End update sort form
+
+}
+
+// end sort
