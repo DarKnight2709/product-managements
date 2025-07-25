@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+const path = require("path");
 const database = require("./config/database");
 const methodOverride = require('method-override');
 
@@ -32,6 +33,11 @@ app.use(session({
 app.use(flash());
 // End Flash
 
+
+// TinyMCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+
+// End TinyMCE
 
 app.set('views', `${__dirname}/views`); 
 app.set('view engine', 'pug');
