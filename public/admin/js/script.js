@@ -1,3 +1,5 @@
+
+
 // Button status
 const buttonStatus = document.querySelectorAll("[button-status]");
 
@@ -178,13 +180,11 @@ if(showAlert) {
 // Upload Image (preview)
 const uploadImage = document.querySelector("[upload-image]");
 
-console.log(uploadImage);
 if(uploadImage) {
   const uploadImageInput = uploadImage.querySelector("[upload-image-input]");
   const uploadImagePreview = uploadImage.querySelector("[upload-image-preview]");
 
   
-  console.log(uploadImageInput.files);
 
   uploadImageInput.addEventListener("change", (e) => {
 
@@ -214,11 +214,9 @@ if(uploadImage) {
 
 // sort 
 const sort = document.querySelector("[sort]");
-console.log(sort);
 
 if(sort) {
   const sortSelect = sort.querySelector("[sort-select]");
-  console.log(sortSelect.value);
 
   const sortClear = sort.querySelector("[sort-clear]");
 
@@ -236,7 +234,6 @@ if(sort) {
       window.location.href = url.href; 
     }
   });
-  console.log(sortClear);
 
   sortClear.addEventListener("click", () => {
 
@@ -262,3 +259,36 @@ if(sort) {
 }
 
 // end sort
+
+
+// insert parent category in a good looking way (DÙNG PUG THAY CHO ĐOẠN JS NÀY)
+// const selectSection = document.querySelector("[parent-category]");
+// if(selectSection) {
+//   let optionString = "";
+
+//   function convertToOptions(children, rank) {
+//     if (children.length > 0) {
+//       children.forEach(each => {
+//         optionString += `\n<option value="${each.parent.id}">-- ${"-- ".repeat(rank)}${each.parent.title}</option>`;
+//         convertToOptions(each.children, rank + 1);
+//       });
+//     }
+//   }
+
+//   // Parse data-option
+  // const optionData = JSON.parse(selectSection.getAttribute("data-option"));
+
+  // console.log(optionData);
+
+//   // Tạo option string
+//   convertToOptions(optionData, 0);
+
+//   // Thêm option mặc định ở đầu
+//   optionString = `<option value="">-- Chọn danh mục cha --</option>` + optionString;
+
+//   // Gán vào select
+//   selectSection.innerHTML = optionString;
+// }
+
+
+// end insert parent category
